@@ -7,7 +7,6 @@ from django.http import Http404
 
 def passcard_info_view(request, passcode):
 
-    # passcard = Passcard.objects.filter(passcode=passcode)[0]
     try:
         passcard = Passcard.objects.filter(passcode=passcode)[0]
     except IndexError:
@@ -23,7 +22,6 @@ def passcard_info_view(request, passcode):
             'duration': format_duration(visit.get_duration()),
             'is_strange': 'ОЧЕНЬ ДОЛГО' if visit.is_visit_long() else ''
             }
-        # print(format_duration(visit.get_duration()))
         this_passcard_visits.append(visit_data)
 
     context = {

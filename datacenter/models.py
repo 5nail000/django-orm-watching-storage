@@ -1,4 +1,3 @@
-import datetime
 import math
 from django.db import models
 from django.utils.timezone import localtime
