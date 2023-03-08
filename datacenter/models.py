@@ -37,11 +37,7 @@ class Visit(models.Model):
         return duration
 
     def is_visit_long(self):
-        leaved_at = localtime() if not self.leaved_at else self.leaved_at
-        duration = int((leaved_at - self.entered_at).total_seconds())
-
-        is_long = True if duration > 3600 else False
-        return is_long
+        return self.get_duration() > 3600
 
 
 def format_duration(seconds):
@@ -54,14 +50,6 @@ def format_duration(seconds):
 
     text_time = ''
 
-    if seconds > 86400:
-        days = math.floor(seconds/86400)
-        solver = int(str(days)[-1]) if days >= 21 else days
-        temp_str = 'день' if solver < 2 else ('дня' if solver < 5 else 'дней')
-        if solver < 1:
-            temp_str = 'дней'
-        text_time += f"{days} {temp_str} "
-        seconds = seconds - days*86400
     if seconds > 3600:
         hours = math.floor(seconds/3600)
         solver = int(str(hours)[-1]) if hours >= 21 else hours
