@@ -3,7 +3,6 @@ from datacenter.models import Visit
 from datacenter.models import format_duration
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import Http404
 
 
 def passcard_info_view(request, passcode):
