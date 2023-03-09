@@ -41,36 +41,7 @@ class Visit(models.Model):
 
 
 def format_duration(seconds):
-
-    if not seconds:
-        return " --- "
-
-    if seconds < 1:
-        return '0 секунд'
-
-    text_time = ''
-
-    if seconds > 3600:
-        hours = math.floor(seconds/3600)
-        solver = int(str(hours)[-1]) if hours >= 21 else hours
-        temp_str = 'час' if solver < 2 else ('часа' if solver < 5 else 'часов')
-        if solver < 1:
-            temp_str = 'часов'
-        text_time += f"{hours} {temp_str} "
-        seconds = seconds - hours*3600
-    if seconds > 60:
-        minutes = math.floor(seconds/60)
-        solver = int(str(minutes)[-1]) if minutes >= 21 else minutes
-        temp_str = 'минута' if solver < 2 else ('минуты' if solver < 5 else 'минут')
-        if solver < 1:
-            temp_str = 'минут'
-        text_time += f"{minutes} {temp_str} "
-        seconds = seconds - minutes*60
-    if seconds > 0:
-        solver = int(str(seconds)[-1]) if seconds >= 21 else seconds
-        temp_str = 'секунда' if solver < 2 else ('секунды' if solver < 5 else 'секунд')
-        text_time += f"{seconds} {temp_str} "
-
-    text_time = text_time[:-1]
-
-    return text_time
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    text = f'{int(hours)}ч {int(minutes)}мин' if hours > 0 else f'{int(minutes)}мин'
+    return text
