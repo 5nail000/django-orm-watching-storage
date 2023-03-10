@@ -6,12 +6,12 @@ load_dotenv()
 
 DATABASES = {
     'default': {
-        'ENGINE': str(os.getenv('ENGINE')),
-        'HOST': str(os.getenv('HOST')),
-        'PORT': str(os.getenv('PORT')),
-        'NAME': str(os.getenv('NAME')),
-        'USER': str(os.getenv('USER')),
-        'PASSWORD': str(os.getenv('PASSWORD')),
+        'ENGINE': os.getenv('ENGINE'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD')
     }
 }
 
@@ -19,7 +19,7 @@ INSTALLED_APPS = ['datacenter']
 
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-DEBUG = True
+DEBUG = False if os.getenv('DEBUG') == 'false' or os.getenv('DEBUG') == 'FALSE' or os.getenv('DEBUG') == 'False' else True
 
 ROOT_URLCONF = 'project.urls'
 
