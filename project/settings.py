@@ -1,30 +1,20 @@
 import os
-from dotenv import load_dotenv
+import environ
 
 
-load_dotenv()
+env = environ.Env(
+    DEBUG=(bool, False)  # set casting, default value
+)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD')
-    }
-}
+environ.Env.read_env(env.str('ENV_PATH', '.env'))
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
+DATABASES = {'default': env.db('DB_URL')}
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = str(os.getenv('SECRET_KEY'))
-
-DEBUG = False if os.getenv('DEBUG') == 'false' or os.getenv('DEBUG') == 'FALSE' or os.getenv('DEBUG') == 'False' else True
-
 ROOT_URLCONF = 'project.urls'
-
-ALLOWED_HOSTS = ['*']
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
@@ -34,7 +24,6 @@ TEMPLATES = [
         'APP_DIRS': True,
     },
 ]
-
 
 USE_L10N = True
 
